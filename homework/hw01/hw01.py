@@ -1,5 +1,5 @@
 from operator import add, sub
-
+from functools import reduce
 def a_plus_abs_b(a, b):
     """Return a+abs(b), but without calling abs.
 
@@ -13,9 +13,9 @@ def a_plus_abs_b(a, b):
     ['return f(a, b)']
     """
     if b < 0:
-        f = _____
+        f = sub
     else:
-        f = _____
+        f = add
     return f(a, b)
 
 
@@ -37,10 +37,11 @@ def two_of_three(x, y, z):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
     ['Expr', 'Return']
     """
-    return _____
+    max = max(x, y, z)**2
+    return x **2 + y **2 + z **2 - max
+    # 不行，还是不知道哪两个数最小。
 
-
-def largest_factor(n):
+def largest_factor(x):
     """Return the largest factor of n that is smaller than n.
 
     >>> largest_factor(15) # factors are 1, 3, 5
@@ -51,12 +52,15 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    for i in range(x//2, 0, -1):
+        if x % i == 0:
+            return i
 
 
 def if_function(condition, true_result, false_result):
     """Return true_result if condition is a true value, and
     false_result otherwise.
-
+    
     >>> if_function(True, 2, 3)
     2
     >>> if_function(False, 2, 3)
@@ -95,13 +99,14 @@ def with_if_function():
     return if_function(cond(), true_func(), false_func())
 
 def cond():
-    "*** YOUR CODE HERE ***"
+    return False
 
 def true_func():
-    "*** YOUR CODE HERE ***"
+    # print(47)
+    print(42)
 
 def false_func():
-    "*** YOUR CODE HERE ***"
+    print(47)
 
 
 def hailstone(n):
