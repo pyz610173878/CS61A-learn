@@ -15,8 +15,9 @@ def roll_dice(num_rolls, dice=six_sided):
     """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return 1.
 
-    num_rolls:  The number of dice rolls that will be made.
-    dice:       A function that simulates a single dice roll outcome.
+    # 返回结果的总和。除非骰子的数量是1.
+    num_rolls:  The number of dice rolls that will be made.  将要进行的掷骰子的次数
+    dice:       A function that simulates a single dice roll outcome.  一个模拟单次掷骰子结果的函数 也就是几面
     """
     # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'

@@ -13,15 +13,15 @@ def a_plus_abs_b(a, b):
     ['return f(a, b)']
     """
     if b < 0:
-        f = sub
+        f = lambda a, b: a - b
     else:
-        f = add
+        f = lambda a, b: a + b
     return f(a, b)
 
 
 def two_of_three(x, y, z):
-    """Return a*a + b*b, where a and b are the two smallest members of the
-    positive numbers x, y, and z.
+
+    """以三个正数为参数，返回两个最小数的平方和
 
     >>> two_of_three(1, 2, 3)
     5
@@ -37,12 +37,10 @@ def two_of_three(x, y, z):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
     ['Expr', 'Return']
     """
-    max = max(x, y, z)**2
     return x **2 + y **2 + z **2 - max
-    # 不行，还是不知道哪两个数最小。
 
 def largest_factor(x):
-    """Return the largest factor of n that is smaller than n.
+    """返回x的最大因子
 
     >>> largest_factor(15) # factors are 1, 3, 5
     5
@@ -55,6 +53,10 @@ def largest_factor(x):
     for i in range(x//2, 0, -1):
         if x % i == 0:
             return i
+
+
+
+
 
 
 def if_function(condition, true_result, false_result):
