@@ -1,8 +1,8 @@
 from operator import add, sub
 from functools import reduce
 def a_plus_abs_b(a, b):
-    """Return a+abs(b), but without calling abs.
-
+    """返回 a + b的绝对值, 但不是用abs()函数。
+    
     >>> a_plus_abs_b(2, 3)
     5
     >>> a_plus_abs_b(2, -3)
@@ -85,6 +85,7 @@ def with_if_statement():
     >>> print(result)
     None
     """
+    
     if cond():
         return true_func()
     else:
