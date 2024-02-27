@@ -12,32 +12,19 @@ FIRST_101_DIGITS_OF_PI = 3141592653589793238462643383279502884197169399375105820
 
 
 def roll_dice(num_rolls, dice=six_sided):
-    """模拟将骰子精确滚动 NUM_ROLLS > 0 次。返回结果的总和，除非任何结果为 1。在这种情况下 返回 1.
+    """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
+    the outcomes unless any of the outcomes is 1. In that case, return 1.
 
-    
-    num_rolls: 将要进行的掷骰子的次数
-    dice:      一个模拟单次掷骰子结果的函数 也就是几面
+    # 返回结果的总和。除非骰子的数量是1.
+    num_rolls:  The number of dice rolls that will be made.  将要进行的掷骰子的次数
+    dice:       A function that simulates a single dice roll outcome.  一个模拟单次掷骰子结果的函数 也就是几面
     """
-    # 下列 assert语句 表示 num_rolls 必须为正整数.
+    # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
-
-    Pig_out = False
-    sum_of_rolls = 0
-    
-    for _ in range(num_rolls):
-        roll = dice()  # 掷骰子
-        if roll == 1:  # 如果结果为1
-            Pig_out = True  # 设置“Pig Out”标志为True
-        sum_of_rolls += roll  # 累加点数
-        print(roll)
-    if Pig_out:  # 如果出现了“Pig Out”
-        return 1  # 返回1分
-    
-    else:
-        return sum_of_rolls  # 返回点数总和
+    # END PROBLEM 1
 
 
 def free_bacon(score):
