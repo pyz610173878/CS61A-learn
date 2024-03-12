@@ -114,7 +114,9 @@ def pig_pass(player_score, opponent_score):
     False
     """
     # BEGIN PROBLEM 4b
-    "*** YOUR CODE HERE ***"
+    abs_ones_dist = abs(player_score%10 - opponent_score%10) 
+    oppo_tens = opponent_score//10%10
+    return abs_ones_dist == oppo_tens
     # END PROBLEM 4b
 
 
@@ -135,7 +137,7 @@ def silence(score0, score1):
 
 
 def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
-         goal=GOAL_SCORE, say=silence):
+         goal=GOAL_SCORE, say=silence, feral_hogs=True):
     """Simulate a game and return the final scores of both players, with Player
     0's score first, and Player 1's score second.
 
@@ -150,14 +152,42 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     dice:       A function of zero arguments that simulates a dice roll.
     goal:       The game ends and someone wins when this score is reached.
     say:        The commentary function to call at the end of the first turn.
+    feral_hogs: A boolean indicating whether the feral hogs rule should be active.
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    last_turn_score0, last_turn_score1 = 0, 0
+    turn = 0
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            num_rolls = strategy0(score0, score1)
+            this_turn_score = take_turn(num_rolls, score1, dice)
+            score0 += this_turn_score
+            if feral_hogs and abs(last_turn_score0 - num_rolls) == 2:
+                score0 += 3
+            if pig_pass(score0, score1):
+                score0, score1 = score1, score0
+            last_turn_score0 = this_turn_score
+        else:
+            num_rolls = strategy1(score1, score0)
+            this_turn_score = take_turn(num_rolls, score0, dice)
+            score1 += this_turn_score
+            if feral_hogs and abs(last_turn_score1 - num_rolls) == 2:
+                score1 += 3
+            if pig_pass(score1, score0):
+                score0, score1 = score1, score0
+            last_turn_score1 = this_turn_score
+        who = other(who)
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+        "*** YOUR CODE HERE ***"
+        if turn == 0:
+            comment = say(score0, score1)
+        else:
+            comment = comment(score0, score1)
+        turn += 1
     # END PROBLEM 6
     return score0, score1
 
@@ -221,8 +251,9 @@ def both(f, g):
 
 
 def announce_highest(who, last_score=0, running_high=0):
-    """Return a commentary function that announces when WHO's score
-    increases by more than ever before in the game.
+    """返回在特定玩家的得分增加超过之前的最高分时宣布这一成就.
+    last_score 表示玩家上一次的得分
+    running_high 表示游戏进行到目前为止的最高得分增加
 
     NOTE: the following game is not possible under the rules, it's just
     an example for the sake of the doctest
